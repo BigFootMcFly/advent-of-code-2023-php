@@ -9,7 +9,7 @@ function day1_part1(string $filename) {
 
     foreach ($lines as $line) {
 
-        $numbers = preg_replace('/[^\d]/','',trim($line));
+        $numbers = preg_replace('/[\D]/','',trim($line));
 
         # add the found number to the summary
         $sum += $numbers[0].substr($numbers,-1);
