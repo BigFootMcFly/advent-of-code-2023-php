@@ -116,27 +116,20 @@ function day_03_part2(string $filename) {
         list($_row, $_col) = $gear;
         $connection = [];
 
-        # check each possible rows
-        for ($i=$_row-1; $i<$_row+1; $i++) {
+        # check each part number 
+        foreach ($part_numbers as $part) {
+            list($part_row, $part_col, $part_number) = $part;
 
-            # skip non existing rows
-            if ($i<0) continue;
-            if ($i>count($data)-1) continue;
+            # skip if the part is to far away
+            if ( abs($_row-$part_row)>1 ) continue;
 
-            # check each part number 
-            #NOTE: this could be optimized if the part numbers were stored in a row indexed array, but the we would need to check for missing rows
-            foreach ($part_numbers as $part) {
-
-                # skip if the part is to far away
-                if ( abs($_row-$part[0])>1 ) continue;
-
-                # check if the gear is adjacent to the part
-                if ( ($_col>= $part[1]-1) && ($_col <= $part[1]+strlen($part[2]+1)) ) {
-                    # store if it is adjecent
-                    if (!in_array($part,$connection)) $connection[] = $part;
-                }
+            # check if the gear is adjacent to the part
+            if ( ($_col>= $part_col-1) && ($_col <= $part_col+strlen($part_number+1)) ) {
+                # store the found one
+                $connection[] = $part;
             }
         }
+
         # check if the gear has exactly two connections to part numbers
         if (count($connection)==2) $connections[] = $connection;
         
