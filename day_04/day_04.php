@@ -59,6 +59,7 @@ function day_04_part2(string $filename) {
 
     # update data structure to a more readable way and extend with the new fields
     foreach ($raw as $card) {
+        $card_data = [];
         $card_data['wins'] = $card[0];
         $card_data['nums'] = $card[1];
         $card_data['found'] = count(array_intersect($card[0], $card[1]));
