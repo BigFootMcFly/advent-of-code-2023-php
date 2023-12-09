@@ -53,49 +53,6 @@ function day_08_part1(string $filename) {
 }
 
 
-# Part 2
-//NOTE: This may take a while... (just left it here ho historicall reasons)
-//NOTE: SO NOT TRY THIS AT HOME! (use 'day_08_part2' instead)
-function day_08_part2_brute_force(string $filename) {
-
-    $data = load_data($filename);
-
-    $steps = 0;
-    $instruction_index = 0;
-
-    # initialize starting state
-    $instruction = $data->instructions[$instruction_index++];
-
-    $current_nodes = [];
-    # get all startting nodes
-    foreach ($data->nodes as $node) {
-        if ($node->name[2] == 'A') {
-            $current_nodes[] = $node;
-        }
-    }
-    $finished = false;
-    do {
-
-        $finished = true;
-        for ($node_index=0; $node_index<count($current_nodes); $node_index++)  {
-            $current_nodes[$node_index] = $data->nodes[$current_nodes[$node_index]->$instruction];
-            
-            if ($current_nodes[$node_index]->name[2] != 'Z') $finished = false;
-        }
-        # count steps
-        $steps++;
-        if ($steps % 1000 == 0) echo "$steps\n";
-        # get next instruction
-        if ($instruction_index>=strlen($data->instructions)) {
-            $instruction_index = 0;
-        }
-        $instruction = $data->instructions[$instruction_index++];
-
-    } while (false === $finished);
-    
-    return $steps;
-}
-
 # Part 2 helpers
 
 // Euclidean algorithm
