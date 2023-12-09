@@ -32,7 +32,7 @@ function gen_sequenses(array $source): array {
 
 function extrapolate(array $source): array  {
     
-    # extraploate each sequence from bottom to top
+    # extrapolate each sequence from bottom to top
     $source[count($source)-1][] = 0;
     for ($i=count($source)-2; $i>=0; $i--) {
         
@@ -40,6 +40,20 @@ function extrapolate(array $source): array  {
     }
     return $source;
 }
+
+# Part 2 helpers
+
+function extrapolate_left(array $source): array  {
+    
+    # extrapolate each sequence from bottom to top
+    array_unshift($source[count($source)-1],0);
+    for ($i=count($source)-2; $i>=0; $i--) {
+        
+        array_unshift($source[$i],$source[$i][0]-$source[$i+1][0]);
+    }
+    return $source;
+}
+
 
 # Part 1
 function day_09_part1(string $filename) {
@@ -50,6 +64,7 @@ function day_09_part1(string $filename) {
     foreach ($data as $array) {
         $values[] = extrapolate(gen_sequenses($array));
     }
+
     # calculate sum
     $sum = 0;
     array_walk($values, function ($array) use (&$sum) { $sum += end($array[0]);});
@@ -62,15 +77,22 @@ function day_09_part1(string $filename) {
 function day_09_part2(string $filename) {
 
     $data = load_data($filename);
+    $values = [];
 
-    $result = null;
+    foreach ($data as $array) {
+        $values[] = extrapolate_left(gen_sequenses($array));
+    }
 
-    return $result;
+    # calculate sum
+    $sum = 0;
+    array_walk($values, function ($array) use (&$sum) { $sum += $array[0][0];});
+
+    return $sum;
 }
 
 echo "[TEST] Day 09 Part 1: ".day_09_part1('res/test1.dat')."\n"; // 114
 echo "[PROD] Day 09 Part 1: ".day_09_part1('res/input.dat')."\n"; // 1789635132
-#echo "[TEST] Day 09 Part 2: ".day_09_part2('res/test1.dat')."\n"; // 2286
-#echo "[PROD] Day 09 Part 2: ".day_09_part2('res/input.dat')."\n"; // 59795
+echo "[TEST] Day 09 Part 2: ".day_09_part2('res/test1.dat')."\n"; // 2
+echo "[PROD] Day 09 Part 2: ".day_09_part2('res/input.dat')."\n"; // 913
 
 
