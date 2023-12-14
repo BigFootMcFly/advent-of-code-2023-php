@@ -3,9 +3,6 @@
 class Day11Challenge {
 
     //---------------------------------------------------------------------
-    public function __construct(){}
-
-    //---------------------------------------------------------------------
     protected function load_data(string $filename): array {
 
         $lines = file('res/'.$filename,FILE_IGNORE_NEW_LINES);
@@ -153,6 +150,8 @@ $challenge = new Day11Challenge();
 
 echo "[TEST] Day 11 Part 1: ".$challenge->solvePart1('test1.dat')."\n"; // 374
 echo "[PROD] Day 11 Part 1: ".$challenge->solvePart1('input.dat')."\n"; // 9521550
+//NOTE: part 2 can be used to solve par 1 as well...
+// echo "[PROD] Day 11 Part 1: ".$challenge->solvePart2('input.dat',2)."\n"; // 9521550
 echo "[TEST] Day 11 Part 2 (10x): ".$challenge->solvePart2('test1.dat',10)."\n"; // 1030
 echo "[TEST] Day 11 Part 2 (100x): ".$challenge->solvePart2('test1.dat',100)."\n"; // 8410
 echo "[PROD] Day 11 Part 2 (1.000.000x): ".$challenge->solvePart2('input.dat',1000000)."\n"; // 298932923702
